@@ -1,9 +1,6 @@
 package StatusSentry.core.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -14,13 +11,17 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class MonitorTarget {
+public class MonitorTargetEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(
+            allocationSize = 50
+    )
     private Long id;
 
     private String name;
     private String url;
+
     private Integer checkInterval;
     private boolean isUp;
     private LocalDateTime lastCheck;
