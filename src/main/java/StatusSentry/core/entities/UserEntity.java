@@ -1,5 +1,6 @@
 package StatusSentry.core.entities;
 
+import StatusSentry.core.entities.enums.PlanType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,15 +28,17 @@ public class UserEntity {
     private String verificationCode;
     private boolean verified;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private PlanType plan = PlanType.FREE;
+
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    protected boolean isExpired() {
-        LocalDateTime now = LocalDateTime.now();
-        LocalDateTime limit = this.createdAt.plusMinutes(15L);
-
-        return now.isAfter(limit);
+    protected boolean isVerificationCodeExpired() {
+        if (this.createdAt == null) return true;
+        return LocalDateTime.now().isAfter(this.createdAt.plusMinutes(15L));
     }
 }
