@@ -21,7 +21,13 @@ public class MonitorTargetEntity {
     )
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_target_user"))
+    private UserEntity user;
+
+    @Column(unique = true, nullable = false)
     private String name;
+    @Column(unique = true, nullable = false)
     private String url;
 
     private Integer checkInterval;

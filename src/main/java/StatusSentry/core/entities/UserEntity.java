@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -21,8 +22,12 @@ public class UserEntity {
     @Column(name = "id", updatable = false, nullable = false, columnDefinition = "UUID")
     private UUID id;
 
-    @Column(unique = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MonitorTargetEntity> targets;
+
+    @Column(unique = true, nullable = false)
     private String username;
+    @Column(unique = true, nullable = false)
     private String email;
 
     private String verificationCode;
