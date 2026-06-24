@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verifique sua conta - StatusSentry</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            color: #333333;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #2563eb; /* Azul corporativo */
+        }
+        h2 {
+            color: #1e3a8a;
+            margin-top: 0;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .token-box {
+            background-color: #f0f4ff;
+            border: 2px dashed #2563eb;
+            color: #2563eb;
+            font-size: 28px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 5px;
+            padding: 15px;
+            margin: 25px 0;
+            border-radius: 6px;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777777;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Olá!</h2>
+    <p>Obrigado por se cadastrar no <strong>StatusSentry</strong>. Para ativar a sua conta e começar a monitorar seus serviços, utilize o token de verificação abaixo:</p>
+
+    <div class="token-box" th:text="${token}">123456</div>
+
+    <p>Este código é válido por <strong>15 minutos</strong>. Se você não solicitou este código, basta ignorar este e-mail.</p>
+
+    <div class="footer">
+        Sistemas StatusSentry &copy; 2026 - Monitoramento em Tempo Real
+    </div>
+</div>
+
+</body>
+</html>
