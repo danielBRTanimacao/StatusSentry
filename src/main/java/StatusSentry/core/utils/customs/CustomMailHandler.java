@@ -18,11 +18,11 @@ public class CustomMailHandler {
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
 
-    @Value("${spring.standard.email}")
-    private String standardEmail;
+    @Value("${statussentry.mail.sender}")
+    private String senderEmail;
 
     public void sendVerificationEmail(String destination, String token) {
-        log.info("init send email for: {}", destination);
+        log.info("Sending verification email to: {}", destination);
 
         try {
             MimeMessage message = mailSender.createMimeMessage();
@@ -33,17 +33,18 @@ public class CustomMailHandler {
 
             String htmlContent = templateEngine.process("verificationEmail", context);
 
-            helper.setFrom(standardEmail);
+            helper.setFrom(senderEmail);
             helper.setTo(destination);
             helper.setSubject("Seu token de acesso - StatusSentry");
             helper.setText(htmlContent, true);
 
             mailSender.send(message);
 
-            log.debug("Email success submitted {}", destination);
+            log.info("Verification email sent successfully to: {}", destination);
 
         } catch (Exception e) {
-            log.error("Fail sending email {}: {}", destination, e.getMessage());
+            log.error("Failed to send verification email to {}: {}", destination, e.getMessage(), e);
+            throw new RuntimeException("Failed to send verification email to: " + destination, e);
         }
     }
 }

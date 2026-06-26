@@ -17,13 +17,13 @@ import org.thymeleaf.context.Context;
 
 import java.util.Properties;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-
 @ExtendWith(MockitoExtension.class)
-public class CustomMailHandlerTests {
+class CustomMailHandlerTests {
 
     @Mock
     private JavaMailSender mailSender;
@@ -34,29 +34,58 @@ public class CustomMailHandlerTests {
     @InjectMocks
     private CustomMailHandler customMailHandler;
 
+    private static final String SENDER     = "teampotatopix@gmail.com";
+    private static final String DESTINATARY = "danieltenorio2046@gmail.com";
+    private static final String TOKEN       = "HTP45";
+    private static final String HTML_MOCK   = "<html><body>Token: HTP45</body></html>";
+
     @BeforeEach
     void setUp() {
-        Session session = Session.getDefaultInstance(new Properties());
-        MimeMessage realMimeMessage = new MimeMessage(session);
-
+        MimeMessage realMimeMessage = new MimeMessage(
+                Session.getDefaultInstance(new Properties())
+        );
         when(mailSender.createMimeMessage()).thenReturn(realMimeMessage);
-
-        ReflectionTestUtils.setField(customMailHandler, "standardEmail", "noreply@statussentry.com");
+        ReflectionTestUtils.setField(customMailHandler, "senderEmail", SENDER);
     }
 
     @Test
-    @DisplayName("Need to submit and process the HTML template")
-    void sendVerificationEmail_WithoutError() {
-        String destination = "danieltenorio2046@gmail.com";
-        String token = "HTP45";
-        String htmlSimula = "<html>Conteudo do HTP45</html>";
-
+    @DisplayName("Should process template and send email successfully")
+    void sendVerificationEmail_success() {
         when(templateEngine.process(eq("verificationEmail"), any(Context.class)))
-                .thenReturn(htmlSimula);
+                .thenReturn(HTML_MOCK);
 
-        customMailHandler.sendVerificationEmail(destination, token);
+        customMailHandler.sendVerificationEmail(DESTINATARY, TOKEN);
 
         verify(templateEngine, times(1)).process(eq("verificationEmail"), any(Context.class));
         verify(mailSender, times(1)).send(any(MimeMessage.class));
+    }
+
+    @Test
+    @DisplayName("Should throw RuntimeException when mail sending fails")
+    void sendVerificationEmail_throwsOnMailError() {
+        when(templateEngine.process(eq("verificationEmail"), any(Context.class)))
+                .thenReturn(HTML_MOCK);
+
+        doThrow(new RuntimeException("SMTP error"))
+                .when(mailSender).send(any(MimeMessage.class));
+
+        assertThrows(RuntimeException.class, () ->
+                customMailHandler.sendVerificationEmail(DESTINATARY, TOKEN)
+        );
+
+        verify(mailSender, times(1)).send(any(MimeMessage.class));
+    }
+
+    @Test
+    @DisplayName("Should throw RuntimeException when template processing fails")
+    void sendVerificationEmail_throwsOnTemplateError() {
+        when(templateEngine.process(eq("verificationEmail"), any(Context.class)))
+                .thenThrow(new RuntimeException("Template not found"));
+
+        assertThrows(RuntimeException.class, () ->
+                customMailHandler.sendVerificationEmail(DESTINATARY, TOKEN)
+        );
+
+        verify(mailSender, never()).send(any(MimeMessage.class));
     }
 }
