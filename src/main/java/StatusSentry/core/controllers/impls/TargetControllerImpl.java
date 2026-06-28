@@ -1,6 +1,6 @@
 package StatusSentry.core.controllers.impls;
 
-import StatusSentry.core.DTOs.monitor.PageResponseMonitor;
+import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
 import StatusSentry.core.controllers.TargetController;
 import StatusSentry.core.service.MonitorTargetService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class TargetControllerImpl implements TargetController {
     private final MonitorTargetService service;
 
     @Override
-    public ResponseEntity<Page<PageResponseMonitor>> getAllUrls(int page, int size) {
+    public ResponseEntity<Page<PageResponseMonitorDTO>> getAllUrls(int page, int size) {
         return ResponseEntity.ok().body(service.getAll(page, size));
     }
 
