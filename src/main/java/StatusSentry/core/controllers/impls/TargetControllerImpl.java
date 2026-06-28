@@ -1,7 +1,10 @@
 package StatusSentry.core.controllers.impls;
 
+import StatusSentry.core.DTOs.monitor.PageResponseMonitor;
 import StatusSentry.core.controllers.TargetController;
+import StatusSentry.core.service.MonitorTargetService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,9 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TargetControllerImpl implements TargetController {
 
+    private final MonitorTargetService service;
+
     @Override
-    public ResponseEntity<Void> getAllUrls() {
-        return null;
+    public ResponseEntity<Page<PageResponseMonitor>> getAllUrls(int page, int size) {
+        return ResponseEntity.ok().body(service.getAll(page, size));
     }
 
     @Override
