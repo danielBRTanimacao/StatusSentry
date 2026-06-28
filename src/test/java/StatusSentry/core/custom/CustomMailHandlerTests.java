@@ -34,7 +34,7 @@ class CustomMailHandlerTests {
     @InjectMocks
     private CustomMailHandler customMailHandler;
 
-    private static final String SENDER     = "teampotatopix@gmail.com";
+    private static final String SENDER     = "emailsubmit6@gmail.com";
     private static final String DESTINATARY = "danieltenorio2046@gmail.com";
     private static final String TOKEN       = "HTP45";
     private static final String HTML_MOCK   = "<html><body>Token: HTP45</body></html>";
