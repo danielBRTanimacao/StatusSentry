@@ -1,11 +1,11 @@
-FROM maven:3.9-eclipse-temurin-21 AS builder
+FROM maven:3.9.16-amazoncorretto-25-alpine AS builder
 
 WORKDIR /app
 COPY . .
 
 RUN mvn clean package -DskipTests
 
-FROM eclipse-temurin:21
+FROM eclipse-temurin:26.0.1_8-jre-ubi10-minimal
 
 WORKDIR /StatusSentry
 
