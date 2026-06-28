@@ -34,3 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### React Frontend (build e node_modules) ###
+src/main/resources/static/statussentry/node_modules/
+src/main/resources/static/dist/
