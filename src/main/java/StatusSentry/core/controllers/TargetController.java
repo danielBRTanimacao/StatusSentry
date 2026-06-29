@@ -1,6 +1,7 @@
 package StatusSentry.core.controllers;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
+import StatusSentry.core.entities.MonitorTargetEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,14 @@ public interface TargetController {
             @RequestParam(defaultValue = "10") int size
     );
 
+    @GetMapping("/{id}")
+    ResponseEntity<MonitorTargetEntity> specificUrl(@PathVariable Long id);
+
     @PostMapping
     ResponseEntity<Void> addNewUrl();
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteUrl(@PathVariable Long id);
 
-    @GetMapping("/{id}")
-    ResponseEntity<Void> specificUrl(@PathVariable Long id);
 }
     

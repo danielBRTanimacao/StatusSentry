@@ -2,6 +2,7 @@ package StatusSentry.core.controllers.impls;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
 import StatusSentry.core.controllers.TargetController;
+import StatusSentry.core.entities.MonitorTargetEntity;
 import StatusSentry.core.service.MonitorTargetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,11 @@ public class TargetControllerImpl implements TargetController {
     }
 
     @Override
+    public ResponseEntity<MonitorTargetEntity> specificUrl(Long id) {
+        return service.getUrl(id);
+    }
+
+    @Override
     public ResponseEntity<Void> addNewUrl() {
         return null;
     }
@@ -29,8 +35,4 @@ public class TargetControllerImpl implements TargetController {
         return null;
     }
 
-    @Override
-    public ResponseEntity<Void> specificUrl(Long id) {
-        return null;
-    }
 }
