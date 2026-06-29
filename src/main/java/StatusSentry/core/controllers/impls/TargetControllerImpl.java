@@ -6,6 +6,7 @@ import StatusSentry.core.entities.MonitorTargetEntity;
 import StatusSentry.core.service.MonitorTargetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,12 +23,13 @@ public class TargetControllerImpl implements TargetController {
 
     @Override
     public ResponseEntity<MonitorTargetEntity> specificUrl(Long id) {
-        return service.getUrl(id);
+        return ResponseEntity.ok().body(service.getUrl(id));
     }
 
     @Override
     public ResponseEntity<Void> addNewUrl() {
-        return null;
+        service.createUrl();
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @Override
