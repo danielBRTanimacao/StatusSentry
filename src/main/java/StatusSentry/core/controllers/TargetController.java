@@ -21,6 +21,9 @@ public interface TargetController {
     @PostMapping
     ResponseEntity<Void> addNewUrl(@RequestBody RequestMonitorTargetDTO data);
 
+    @PutMapping("/{id}")
+    ResponseEntity<Void> updateUrl(@RequestBody RequestMonitorTargetDTO data, @PathVariable Long id);
+
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteUrl(@PathVariable Long id);
 

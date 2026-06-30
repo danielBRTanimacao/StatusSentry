@@ -34,6 +34,11 @@ public class TargetControllerImpl implements TargetController {
     }
 
     @Override
+    public ResponseEntity<Void> updateUrl(RequestMonitorTargetDTO data, Long id) {
+        return null;
+    }
+
+    @Override
     public ResponseEntity<Void> deleteUrl(Long id) {
         service.delUrl(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
