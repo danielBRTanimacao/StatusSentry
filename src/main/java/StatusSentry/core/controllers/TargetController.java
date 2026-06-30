@@ -2,7 +2,9 @@ package StatusSentry.core.controllers;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
 import StatusSentry.core.DTOs.monitor.RequestMonitorTargetDTO;
+import StatusSentry.core.DTOs.monitor.RequestUpdtMonitorDTO;
 import StatusSentry.core.entities.MonitorTargetEntity;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +21,10 @@ public interface TargetController {
     ResponseEntity<MonitorTargetEntity> specificUrl(@PathVariable Long id);
 
     @PostMapping
-    ResponseEntity<Void> addNewUrl(@RequestBody RequestMonitorTargetDTO data);
+    ResponseEntity<Void> addNewUrl(@RequestBody @Valid RequestMonitorTargetDTO data);
 
     @PutMapping("/{id}")
-    ResponseEntity<Void> updateUrl(@RequestBody RequestMonitorTargetDTO data, @PathVariable Long id);
+    ResponseEntity<Void> updateUrl(@RequestBody RequestUpdtMonitorDTO data, @PathVariable Long id);
 
     @DeleteMapping("/{id}")
     ResponseEntity<Void> deleteUrl(@PathVariable Long id);

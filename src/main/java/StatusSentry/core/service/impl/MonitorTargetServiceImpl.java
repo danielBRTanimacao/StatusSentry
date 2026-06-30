@@ -2,6 +2,7 @@ package StatusSentry.core.service.impl;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
 import StatusSentry.core.DTOs.monitor.RequestMonitorTargetDTO;
+import StatusSentry.core.DTOs.monitor.RequestUpdtMonitorDTO;
 import StatusSentry.core.entities.MonitorTargetEntity;
 import StatusSentry.core.repositories.MonitorTargetRepository;
 import StatusSentry.core.service.MonitorTargetService;
@@ -30,6 +31,7 @@ public class MonitorTargetServiceImpl implements MonitorTargetService {
 
     @Override
     public MonitorTargetEntity getUrl(Long id) {
+        log.info("Requesting specific url: {}", id);
         return repository.findById(id).orElseThrow(()-> new NotFoundException("Url not found with id " + id));
     }
 
@@ -45,7 +47,7 @@ public class MonitorTargetServiceImpl implements MonitorTargetService {
     }
 
     @Override
-    public void updtUrl(Long id) {
+    public void updtUrl(RequestUpdtMonitorDTO data, Long id) {
 
     }
 }
