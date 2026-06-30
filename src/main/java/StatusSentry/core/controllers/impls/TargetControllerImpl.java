@@ -1,6 +1,7 @@
 package StatusSentry.core.controllers.impls;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
+import StatusSentry.core.DTOs.monitor.RequestMonitorTargetDTO;
 import StatusSentry.core.controllers.TargetController;
 import StatusSentry.core.entities.MonitorTargetEntity;
 import StatusSentry.core.service.MonitorTargetService;
@@ -27,8 +28,8 @@ public class TargetControllerImpl implements TargetController {
     }
 
     @Override
-    public ResponseEntity<Void> addNewUrl() {
-        service.createUrl();
+    public ResponseEntity<Void> addNewUrl(RequestMonitorTargetDTO data) {
+        service.createUrl(data);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 

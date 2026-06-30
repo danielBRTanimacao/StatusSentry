@@ -1,6 +1,7 @@
 package StatusSentry.core.service.impl;
 
 import StatusSentry.core.DTOs.monitor.PageResponseMonitorDTO;
+import StatusSentry.core.DTOs.monitor.RequestMonitorTargetDTO;
 import StatusSentry.core.entities.MonitorTargetEntity;
 import StatusSentry.core.repositories.MonitorTargetRepository;
 import StatusSentry.core.service.MonitorTargetService;
@@ -33,8 +34,9 @@ public class MonitorTargetServiceImpl implements MonitorTargetService {
     }
 
     @Override
-    public void createUrl() {
-
+    public void createUrl(RequestMonitorTargetDTO data) {
+        MonitorTargetEntity entity = RequestMonitorTargetDTO.toEntity(data);
+        repository.save(entity);
     }
 
     @Override
