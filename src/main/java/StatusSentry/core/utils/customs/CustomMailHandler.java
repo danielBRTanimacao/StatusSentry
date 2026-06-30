@@ -1,5 +1,6 @@
 package StatusSentry.core.utils.customs;
 
+import StatusSentry.core.utils.customs.raises.MessagingMailFailed;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,7 @@ public class CustomMailHandler {
 
         } catch (Exception e) {
             log.error("Failed to send verification email to {}: {}", destination, e.getMessage(), e);
-            throw new RuntimeException("Failed to send verification email to: " + destination, e);
+            throw new MessagingMailFailed("Failed to send verification email to: " + destination, e);
         }
     }
 }

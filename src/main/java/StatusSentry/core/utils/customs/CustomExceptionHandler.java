@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.nio.file.AccessDeniedException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<Map<String, String>> onAccessDeniedException(AccessDeniedException cause) {
         Map<String, String> error = new HashMap<>();
         error.put("error", cause.getMessage());
