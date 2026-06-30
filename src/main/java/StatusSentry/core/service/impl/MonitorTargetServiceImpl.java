@@ -41,7 +41,7 @@ public class MonitorTargetServiceImpl implements MonitorTargetService {
 
     @Override
     public void delUrl(Long id) {
-
+        repository.deleteById(id);
     }
 
     @Override

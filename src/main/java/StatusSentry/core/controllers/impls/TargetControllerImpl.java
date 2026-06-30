@@ -35,7 +35,8 @@ public class TargetControllerImpl implements TargetController {
 
     @Override
     public ResponseEntity<Void> deleteUrl(Long id) {
-        return null;
+        service.delUrl(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
